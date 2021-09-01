@@ -1,5 +1,12 @@
-import {Button} from "@material-ui/core";
+import {Button, withStyles} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
+
+const NewButton = withStyles(theme => ({
+  root: {
+    textTransform: "none",
+    textDecoration: "none"
+  }
+}))(Button)
 
 
 const useStyle = makeStyles({
@@ -14,13 +21,18 @@ const useStyle = makeStyles({
   }
 })
 
-const ButtonApp = ({color, text}) => {
+const ButtonApp = ({color, text, href, isActive}) => {
   const classes = useStyle();
 
   return (
-    <Button variant="contained" className={color ? classes.purple : ''}>
+    <NewButton
+      href={href}
+      variant="contained"
+      className={color ? classes.purple : ''}
+      disabled={isActive}
+    >
       {text ? text : "Отмена"}
-    </Button>
+    </NewButton>
   )
 }
 

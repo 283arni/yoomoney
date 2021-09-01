@@ -1,36 +1,27 @@
 import React from 'react';
-import {Container, FormGroup, Grid, Button} from '@material-ui/core';
-import SelectCard from "../SelectCard/SelectCard";
-import MoneyField from "../MoneyField/MoneyField";
-import CardBank from "../CardBank/CardBank";
+import {Container} from '@material-ui/core';
+import MyCards from "../MyCards/MyCards";
+import MoneyTransfer from "../MoneyTransfer/MoneyTransfer";
+import {Route, Switch} from "react-router-dom";
 import AddCard from "../AddCard/AddCard";
+import Message from "../Message/Message";
+
 
 
 
 function App() {
-
-
   return (
     <div className="App">
       <h1 hidden>Тестовое задание</h1>
       <Container>
-        <AddCard/>
-        {/*<h2>Мои карты</h2>*/}
-        {/*<Grid container>*/}
-        {/*  <CardBank/>*/}
-        {/*</Grid>*/}
-        {/*<Button variant="contained" color="primary">*/}
-        {/*  Primary*/}
-        {/*</Button>*/}
-        {/*<h2>Перевод на кошелек</h2>*/}
-        {/*<form>*/}
-      {/*    <SelectCard/>*/}
-      {/*    <MoneyField/>*/}
-      {/*    <SelectCard/>*/}
-        {/*  <Button variant="contained" color="primary">*/}
-        {/*    Primary*/}
-        {/*  </Button>*/}
-        {/*</form>*/}
+        <Switch>
+          <Route exact path="/">
+            <MyCards/>
+            <MoneyTransfer/>
+          </Route>
+          <Route exact path="/add-card" component={AddCard} />
+          <Route exact path="/info" component={Message} />
+        </Switch>
       </Container>
     </div>
   );

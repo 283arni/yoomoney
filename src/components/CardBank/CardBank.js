@@ -1,6 +1,6 @@
 import {Card, CardMedia, Typography} from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
-import cardImage from '../../images/master.png'
+import cardImage from '../../images/template-card.png'
 
 const useStyles = makeStyles({
   root: {
@@ -30,7 +30,7 @@ const CardBank = () => {
       <CardMedia
         component="img"
         alt="Contemplative Reptile"
-        height="140"
+        height="180"
         image={cardImage}
         title="Contemplative Reptile"
       />

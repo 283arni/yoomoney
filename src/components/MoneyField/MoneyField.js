@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 4,
     position: 'relative',
     border: '1px solid #ced4da',
-    fontSize: 16,
+    fontSize: 12,
     padding: '5px 16px 5px 5px',
     transition: theme.transitions.create(['border-color', 'box-shadow']),
     '&.Mui-focused': {
@@ -31,6 +31,9 @@ const useStyles = makeStyles((theme) => ({
     },
     'label + &': {
       marginTop: '30px',
+    },
+    '& .MuiInputBase-input': {
+      padding: 0
     }
   }
 
