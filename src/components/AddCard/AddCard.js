@@ -4,8 +4,8 @@ import visa from '../../images/visa.png';
 import mir from  '../../images/mir.png';
 import {makeStyles} from "@material-ui/core/styles";
 import ButtonApp from "../ButtonApp/ButtonApp";
-import {Link} from "react-router-dom";
-import {useState} from "react";
+import {Link, useHistory} from "react-router-dom";
+import {useEffect, useState} from "react";
 
 const images = [
   {
@@ -87,7 +87,7 @@ const fieldsCard = {
   cvc: ''
 }
 
-const validateInfoCard = ({number, date, cvc}) => {
+const validateFieldCard = ({number, date, cvc}) => {
 
   if (number.length === 19 && date.length === 5 && cvc.length === 3) {
     return false;
@@ -96,18 +96,26 @@ const validateInfoCard = ({number, date, cvc}) => {
   return true;
 }
 
-const AddCard = () => {
+const creatIDCard = (number) => {
+  return `${Math.random(0, 1) * 100000}${number.substring(15, 19)}`
+}
+
+const AddCard = ({onAddCardClick}) => {
   const classes = useStyle();
+  const history = useHistory();
 
   const [card, setCard] = useState(fieldsCard)
   const [isActive, setActive] = useState(true)
 
+  const handleNextClick = () => {
+    history.push('/info')
+  }
 
   const transformValueInput = (e) => {
     let value = e.target.value;
-    const id = e.target.id;
+    const name = e.target.name;
 
-    if (id === "date") {
+    if (name === "date") {
       if (e.nativeEvent.inputType === 'deleteContentBackward') {
         e.target.value = '';
 
@@ -118,19 +126,21 @@ const AddCard = () => {
       value = value.replace(/[^\d0-9]/g, '').replace(/(.{2})/g, '$1/').trim().slice(0, 5);
     }
 
-    if (id === "number") {
+    if (name === "number") {
       value = value.replace(/[^\d0-9]/g, '').replace(/(.{4})/g, '$1 ').trim().slice(0, 19);
     }
 
-    if (id === "cvc") {
+    if (name === "cvc") {
       value = value.replace(/[^\d0-9]/g, '').trim().slice(0, 3);
     }
 
-
-    setCard({...card, [id]: value});
-    setActive(validateInfoCard(card));
     e.target.value = value;
+    setCard({...card, id: creatIDCard(card.number), [name]: value});
   }
+
+  useEffect(() => {
+    setActive(validateFieldCard(card))
+  }, [card])
 
   return (
     <>
@@ -153,6 +163,7 @@ const AddCard = () => {
             <TextField
               className={classes.numberCard}
               id="number"
+              name="number"
               placeholder="Номер карты"
               variant="outlined"
               onChange={(e) => transformValueInput(e)}
@@ -160,6 +171,7 @@ const AddCard = () => {
             <TextField
               className={classes.dateCard}
               id="date"
+              name="date"
               placeholder="ММ/ГГ"
               variant="outlined"
               onChange={(e) => transformValueInput(e)}
@@ -167,6 +179,7 @@ const AddCard = () => {
             <TextField
               className={classes.cvcCard}
               id="cvc"
+              name="cvc"
               label="Три цифры на обороте"
               placeholder="CVC"
               variant="outlined"
@@ -177,12 +190,13 @@ const AddCard = () => {
         </Paper>
         <div className={classes.buttons}>
           <ButtonApp />
-          <Link
-            to="/info"
+          <ButtonApp
+            card={card}
             color="purple"
             text="Привязать карту"
             isActive={isActive}
-            component={ButtonApp}
+            onNextClick={handleNextClick}
+            onAddCardClick={onAddCardClick}
           />
         </div>
       </form>

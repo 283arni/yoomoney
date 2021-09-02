@@ -21,15 +21,22 @@ const useStyle = makeStyles({
   }
 })
 
-const ButtonApp = ({color, text, href, isActive}) => {
+const ButtonApp = ({card, color, text, isActive, onNextClick, onAddCardClick}) => {
   const classes = useStyle();
+
+  const addCardOrNull = (card) => {
+    return onAddCardClick ? onAddCardClick(card) : null;
+  }
 
   return (
     <NewButton
-      href={href}
       variant="contained"
       className={color ? classes.purple : ''}
       disabled={isActive}
+      onClick={() => {
+        onNextClick();
+        addCardOrNull(card)
+      }}
     >
       {text ? text : "Отмена"}
     </NewButton>

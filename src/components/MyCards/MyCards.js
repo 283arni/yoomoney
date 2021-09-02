@@ -2,7 +2,7 @@ import {Grid} from "@material-ui/core";
 import CardBank from "../CardBank/CardBank";
 import ButtonApp from "../ButtonApp/ButtonApp";
 import {makeStyles} from "@material-ui/core/styles";
-import {Link} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 
 const useStyle = makeStyles({
   list: {
@@ -10,20 +10,24 @@ const useStyle = makeStyles({
   }
 })
 
-const MyCards = () => {
+const MyCards = ({cards}) => {
   const classes = useStyle();
+  const history = useHistory();
+
+  const handleNextClick = () => {
+    history.push('/add-card')
+  }
 
   return (
     <>
       <h2>Мои карты</h2>
       <Grid className={classes.list} container>
-        <CardBank/>
+        {cards.map(card => <CardBank key={card.id} card={card}/>)}
       </Grid>
-      <Link
-        to='/add-card'
+      <ButtonApp
         color="purple"
-        text="Добавить карту"
-        component={ButtonApp}
+        text={cards.length ? "Добавить еще карту" : "Добавить карту"}
+        onNextClick={handleNextClick}
       />
     </>
   )

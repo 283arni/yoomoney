@@ -2,7 +2,7 @@ import DoneIcon from '@material-ui/icons/Done';
 import {green} from "@material-ui/core/colors";
 import ButtonApp from "../ButtonApp/ButtonApp";
 import {makeStyles} from "@material-ui/core/styles";
-import {Link} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 
 const useStyle = makeStyles({
   root: {
@@ -23,6 +23,11 @@ const useStyle = makeStyles({
 
 const Message = () => {
   const classes = useStyle();
+  const history = useHistory();
+
+  const handleNextClick = () => {
+    history.push('/')
+  }
 
   return (
     <div className={classes.root}>
@@ -31,10 +36,9 @@ const Message = () => {
       </div>
       <h3>Все получилось</h3>
       <p>Через несколько минут ваша карта появится в кошельке - вы увидите ее в разделе "Банковские карты"</p>
-      <Link
-        to="/"
+      <ButtonApp
         text="Обратно к картам"
-        component={ButtonApp}
+        onNextClick={handleNextClick}
       />
     </div>
   )
