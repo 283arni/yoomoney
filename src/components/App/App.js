@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Container} from '@material-ui/core';
 import MyCards from "../MyCards/MyCards";
 import MoneyTransfer from "../MoneyTransfer/MoneyTransfer";
-import {Link, Route, Switch} from "react-router-dom";
+import {Route, Switch} from "react-router-dom";
 import AddCard from "../AddCard/AddCard";
 import Message from "../Message/Message";
 
@@ -15,7 +15,6 @@ function App() {
   const handleAddCardClick = (newCard) => {
     setCards([...cards, newCard])
   }
-  console.log(cards)
 
   return (
     <div className="App">
@@ -26,7 +25,9 @@ function App() {
             <MyCards
               cards={cards}
             />
-            <MoneyTransfer/>
+            <MoneyTransfer
+              cards={cards}
+            />
           </Route>
           <Route exact path="/add-card">
             <AddCard

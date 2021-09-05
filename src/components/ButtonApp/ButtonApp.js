@@ -4,18 +4,19 @@ import {makeStyles} from "@material-ui/core/styles";
 const NewButton = withStyles(theme => ({
   root: {
     textTransform: "none",
-    textDecoration: "none"
+    textDecoration: "none",
+    fontSize: 10
   }
 }))(Button)
 
 
 const useStyle = makeStyles({
   purple: {
-    backgroundColor: "purple",
+    backgroundColor: "#8a3dfb",
     color: "white",
     transition: "0.3s",
     "&:hover": {
-      backgroundColor: "purple",
+      backgroundColor: "#8a3dfb",
       opacity: 0.8
     }
   }

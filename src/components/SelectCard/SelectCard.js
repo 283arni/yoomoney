@@ -1,7 +1,8 @@
 import {FormControl, InputLabel, MenuItem, Select} from "@material-ui/core";
-import React from "react";
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import {useState} from "react";
 import {makeStyles} from "@material-ui/core/styles";
-import template from "../../images/card.png"
+import SelectCardItem from "../SelectCardItem/SelectCardItem";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,66 +20,74 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: "transparent",
     }
   },
+  label: {
+    fontSize: 12,
+  },
   select: {
     width: 300,
     fontSize: 8,
     borderRadius: 4,
     position: 'relative',
     border: '1px solid #ced4da',
-    padding: '5px 16px 5px 5px',
+    padding: '5px 0 5px 5px',
     transition: theme.transitions.create(['border-color', 'box-shadow']),
     '&.Mui-focused': {
       border: '1px solid #3f51b5'
     },
     'label + &': {
-      marginTop: '30px',
+      marginTop: 15,
     },
     '& .MuiInputBase-input': {
       padding: 0
     }
   },
-  item: {
-    display: "flex",
-    alignItems: "center",
-    '& img': {
-      marginRight: 10,
-    }
+  icon: {
+    color: '#999999'
   }
-
 }));
 
-const SelectCard = () => {
+const SelectCard = ({name, cards, onSelectChange, checkedCard}) => {
   const classes = useStyles();
-  const [age, setAge] = React.useState('');
+  const [id, setId] = useState('0');
 
-  const handleChange = (event) => {
-    setAge(event.target.value);
-  };
+  const newCards = cards.filter((card) => card.id !== checkedCard)
+
 
   return (
     <FormControl className={classes.root}>
-      <InputLabel shrink id="demo-customized-select-label">Куда перевести</InputLabel>
+      <InputLabel
+        className={classes.label}
+        shrink
+        id={`${name}-label`}
+      >
+        {name === 'firstField' ? 'Куда перевести' : 'Откуда'}
+      </InputLabel>
       <Select
         className={classes.select}
-        labelId="demo-customized-select-label"
-        id="demo-customized-select"
-        value={age}
-        onChange={handleChange}
+        labelId={`${name}-label`}
+        name={name}
+        value={id}
+        IconComponent={() => <ExpandMoreIcon className={classes.icon} fontSize='small'/>}
+        onChange={(e) => {
+          const name = e.target.name;
+          const value = e.target.value;
+
+          setId(value)
+          onSelectChange(name, value)
+        }}
       >
-        <MenuItem value="">
-          <em>None</em>
+        <MenuItem value='0'>
+          <SelectCardItem />
         </MenuItem>
-        <MenuItem value={10}>
-          <div className={classes.item}>
-            <img src={template} width={20} height={15} alt="Tinkoff"/>
-            <div>
-              <div>Tinkoff</div>
-              <div>4444</div>
-            </div>
-          </div>
-        </MenuItem>
-        <MenuItem value={20}>Twenty</MenuItem>
-        <MenuItem value={30}>Thirty</MenuItem>
+        {
+          newCards.map(card => {
+            return (
+              <MenuItem key={card.id} value={card.id}>
+                <SelectCardItem card={card}/>
+              </MenuItem>
+            )
+          })
+        }
       </Select>
     </FormControl>
   )

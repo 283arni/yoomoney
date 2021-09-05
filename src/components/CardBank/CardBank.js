@@ -13,7 +13,7 @@ const useStyles = makeStyles({
     top: '50%',
     transform: 'translateY(-50%)',
     left: 20,
-    color: 'white',
+    color: '#999999',
   }
 });
 
@@ -29,10 +29,10 @@ const CardBank = ({card}) => {
     <Card className={classes.root}>
       <CardMedia
         component="img"
-        alt="Contemplative Reptile"
+        alt={card.bank}
         height="180"
         image={cardImage}
-        title="Contemplative Reptile"
+        title={card.bank}
       />
       <Typography className={classes.number}>
         {numberCard}

@@ -1,6 +1,5 @@
-import {MenuItem} from "@material-ui/core";
 import template from "../../images/card.png";
-import React from "react";
+import mastercard from "../../images/master.png";
 import {makeStyles} from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -11,22 +10,31 @@ const useStyles = makeStyles((theme) => ({
     '& img': {
       marginRight: 10
     }
+  },
+  number: {
+    color: '#b2b2b2'
   }
 }));
 
-const SelectCardItem = ({value}) => {
+const SelectCardItem = ({card}) => {
   const classes = useStyles();
 
   return (
-    <MenuItem value={value}>
-      <div className={classes.item}>
-        <img src={template} width={20} height={15} alt="Tinkoff"/>
-        <div>
-          <div>Tinkoff</div>
-          <div>4444</div>
-        </div>
-      </div>
-    </MenuItem>
+    <div className={classes.item}>
+      {card ?
+        <>
+          <img src={mastercard} width={20} height={15} alt={card.bank}/>
+          <div>
+            <div>{card.bank}</div>
+            <div className={classes.number}>{`**** ${card.number.substring(card.number.length - 4, card.number.length)}`}</div>
+          </div>
+        </> :
+        <>
+          <img src={template} width={20} height={15} alt='Новая карта'/>
+          <div>Новая карта</div>
+        </>
+      }
+    </div>
   )
 }
 

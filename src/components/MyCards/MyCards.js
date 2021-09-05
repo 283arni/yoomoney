@@ -22,7 +22,11 @@ const MyCards = ({cards}) => {
     <>
       <h2>Мои карты</h2>
       <Grid className={classes.list} container>
-        {cards.map(card => <CardBank key={card.id} card={card}/>)}
+        {
+          cards.length ?
+          cards.map(card => <CardBank key={card.id} card={card}/>) :
+          <span>У вас нет карт :(</span>
+        }
       </Grid>
       <ButtonApp
         color="purple"

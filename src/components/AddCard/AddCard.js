@@ -1,30 +1,15 @@
 import {TextField, Paper} from "@material-ui/core";
-import master from '../../images/master.png';
-import visa from '../../images/visa.png';
-import mir from  '../../images/mir.png';
 import {makeStyles} from "@material-ui/core/styles";
 import ButtonApp from "../ButtonApp/ButtonApp";
-import {Link, useHistory} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 import {useEffect, useState} from "react";
+import BindLayout from "../BindLayout/BindLayout";
+import {images, fieldsCard} from "../../data";
 
-const images = [
-  {
-    img: master,
-    alt: 'Mastercard'
-  },
-  {
-    img: visa,
-    alt: 'VISA'
-  },
-  {
-    img: mir,
-    alt: 'MIR'
-  }
-]
 
 const useStyle = makeStyles({
   root: {
-    width: 500,
+    width: 300,
   },
   card: {
     padding: 15,
@@ -46,7 +31,8 @@ const useStyle = makeStyles({
     justifyContent: "space-between",
     width: "100%",
     "& input": {
-      padding: 10
+      padding: 5,
+      fontSize: 12
     }
   },
   numberCard: {
@@ -54,14 +40,15 @@ const useStyle = makeStyles({
     marginBottom: 30
   },
   dateCard: {
-    width: 100
+    width: 50
   },
   cvcCard: {
-    width: 100,
+    width: 50,
     "& label": {
       left: "auto",
-      right: 100,
-      width: 100
+      right: 50,
+      width: 75,
+      fontSize: 12
     },
     "& span": {
       display: "none"
@@ -81,12 +68,6 @@ const useStyle = makeStyles({
   }
 })
 
-const fieldsCard = {
-  number: '',
-  date: '',
-  cvc: ''
-}
-
 const validateFieldCard = ({number, date, cvc}) => {
 
   if (number.length === 19 && date.length === 5 && cvc.length === 3) {
@@ -97,7 +78,7 @@ const validateFieldCard = ({number, date, cvc}) => {
 }
 
 const creatIDCard = (number) => {
-  return `${Math.random(0, 1) * 100000}${number.substring(15, 19)}`
+  return `${Math.random() * 100000}${number.substring(15, 19)}`
 }
 
 const AddCard = ({onAddCardClick}) => {
@@ -109,6 +90,10 @@ const AddCard = ({onAddCardClick}) => {
 
   const handleNextClick = () => {
     history.push('/info')
+  }
+
+  const handleCancelClick = () => {
+    history.push('/')
   }
 
   const transformValueInput = (e) => {
@@ -143,8 +128,7 @@ const AddCard = ({onAddCardClick}) => {
   }, [card])
 
   return (
-    <>
-      <h2>Привязка банковской карты</h2>
+    <BindLayout>
       <form className={classes.root}>
         <Paper
           elevation={2}
@@ -189,18 +173,20 @@ const AddCard = ({onAddCardClick}) => {
           </div>
         </Paper>
         <div className={classes.buttons}>
-          <ButtonApp />
+          <ButtonApp
+            onNextClick={handleCancelClick}
+          />
           <ButtonApp
             card={card}
             color="purple"
-            text="Привязать карту"
+            text="Продолжить"
             isActive={isActive}
             onNextClick={handleNextClick}
             onAddCardClick={onAddCardClick}
           />
         </div>
       </form>
-    </>
+    </BindLayout>
   )
 }
 

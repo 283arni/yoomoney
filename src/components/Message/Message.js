@@ -1,13 +1,15 @@
 import DoneIcon from '@material-ui/icons/Done';
 import {green} from "@material-ui/core/colors";
-import ButtonApp from "../ButtonApp/ButtonApp";
 import {makeStyles} from "@material-ui/core/styles";
 import {useHistory} from "react-router-dom";
+import ButtonApp from "../ButtonApp/ButtonApp";
+import BindLayout from "../BindLayout/BindLayout";
 
 const useStyle = makeStyles({
   root: {
-    maxWidth: 500,
-    textAlign: "center"
+    maxWidth: 400,
+    textAlign: "center",
+    padding: '20px 0'
   },
   circle: {
     borderRadius: '50%',
@@ -18,6 +20,9 @@ const useStyle = makeStyles({
     justifyContent: "center",
     alignItems: "center",
     margin: '0 auto'
+  },
+  done: {
+    color: green[500]
   }
 })
 
@@ -30,17 +35,19 @@ const Message = () => {
   }
 
   return (
-    <div className={classes.root}>
-      <div className={classes.circle}>
-        <DoneIcon fontSize="large" style={{color: green[500]}}/>
+    <BindLayout>
+      <div className={classes.root}>
+        <div className={classes.circle}>
+          <DoneIcon className={classes.done} fontSize="large"/>
+        </div>
+        <h3>Все получилось</h3>
+        <p>Через несколько минут ваша карта появится в кошельке - вы увидите ее в разделе "Банковские карты"</p>
+        <ButtonApp
+          text="Обратно к картам"
+          onNextClick={handleNextClick}
+        />
       </div>
-      <h3>Все получилось</h3>
-      <p>Через несколько минут ваша карта появится в кошельке - вы увидите ее в разделе "Банковские карты"</p>
-      <ButtonApp
-        text="Обратно к картам"
-        onNextClick={handleNextClick}
-      />
-    </div>
+    </BindLayout>
   )
 }
 
