@@ -1,6 +1,5 @@
 import {FormControl, InputLabel, MenuItem, Select} from "@material-ui/core";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import {useState} from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import SelectCardItem from "../SelectCardItem/SelectCardItem";
 
@@ -46,12 +45,10 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const SelectCard = ({name, cards, onSelectChange, checkedCard}) => {
+const SelectCard = ({id, name, cards, onSelectChange, checkedCard}) => {
   const classes = useStyles();
-  const [id, setId] = useState('0');
 
-  const newCards = cards.filter((card) => card.id !== checkedCard)
-
+  const newCards = cards.filter((card) => card.id !== checkedCard);
 
   return (
     <FormControl className={classes.root}>
@@ -68,13 +65,7 @@ const SelectCard = ({name, cards, onSelectChange, checkedCard}) => {
         name={name}
         value={id}
         IconComponent={() => <ExpandMoreIcon className={classes.icon} fontSize='small'/>}
-        onChange={(e) => {
-          const name = e.target.name;
-          const value = e.target.value;
-
-          setId(value)
-          onSelectChange(name, value)
-        }}
+        onChange={onSelectChange}
       >
         <MenuItem value='0'>
           <SelectCardItem />

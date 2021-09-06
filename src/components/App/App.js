@@ -6,9 +6,6 @@ import {Route, Switch} from "react-router-dom";
 import AddCard from "../AddCard/AddCard";
 import Message from "../Message/Message";
 
-
-
-
 function App() {
   const [cards, setCards] = useState([])
 

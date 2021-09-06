@@ -1,6 +1,7 @@
 import {Card, CardMedia, Typography} from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 import cardImage from '../../images/template-card.png'
+import {transformNumberCard} from "../../utils";
 
 const useStyles = makeStyles({
   root: {
@@ -16,10 +17,6 @@ const useStyles = makeStyles({
     color: '#999999',
   }
 });
-
-const transformNumberCard = (numberCard) => {
-  return numberCard.substring(0,7) + '** **** ' + numberCard.substring(numberCard.length - 4,numberCard.length);
-}
 
 const CardBank = ({card}) => {
   const classes = useStyles();

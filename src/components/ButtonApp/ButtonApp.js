@@ -1,13 +1,12 @@
 import {Button, withStyles} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 
-const NewButton = withStyles(theme => ({
+const NewButton = withStyles({
   root: {
     textTransform: "none",
-    textDecoration: "none",
     fontSize: 10
   }
-}))(Button)
+})(Button)
 
 
 const useStyle = makeStyles({
@@ -29,13 +28,17 @@ const ButtonApp = ({card, color, text, isActive, onNextClick, onAddCardClick}) =
     return onAddCardClick ? onAddCardClick(card) : null;
   }
 
+  const addNextOrNull = () => {
+    return onNextClick ? onNextClick() : null;
+  }
+
   return (
     <NewButton
       variant="contained"
       className={color ? classes.purple : ''}
       disabled={isActive}
       onClick={() => {
-        onNextClick();
+        addNextOrNull();
         addCardOrNull(card)
       }}
     >

@@ -1,6 +1,5 @@
 import {makeStyles} from "@material-ui/core/styles";
 import {FormControl, Input, InputLabel} from "@material-ui/core";
-import React from "react";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,16 +45,23 @@ const useStyles = makeStyles((theme) => ({
       }
     }
   }
-
 }));
 
-const MoneyField = () => {
+const MoneyField = ({name, onMoneyChange}) => {
   const classes = useStyles();
 
   return (
     <FormControl className={classes.root}>
       <InputLabel className={classes.label}  shrink htmlFor="my-input">Сколько</InputLabel>
-      <Input className={classes.input} id="my-input" aria-describedby="my-helper-text" placeholder='₽' type='number'/>
+      <Input
+        className={classes.input}
+        name={name}
+        id="my-input"
+        aria-describedby="my-helper-text"
+        placeholder='₽'
+        type='number'
+        onChange={onMoneyChange}
+      />
     </FormControl>
   )
 }

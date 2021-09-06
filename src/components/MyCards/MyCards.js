@@ -24,7 +24,8 @@ const MyCards = ({cards}) => {
       <Grid className={classes.list} container>
         {
           cards.length ?
-          cards.map(card => <CardBank key={card.id} card={card}/>) :
+          cards.map(card => <CardBank key={card.id} card={card}/>)
+            :
           <span>У вас нет карт :(</span>
         }
       </Grid>

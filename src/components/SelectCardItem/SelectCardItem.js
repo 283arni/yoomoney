@@ -2,7 +2,7 @@ import template from "../../images/card.png";
 import mastercard from "../../images/master.png";
 import {makeStyles} from "@material-ui/core/styles";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
   item: {
     display: "flex",
     fontSize: 8,
@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   number: {
     color: '#b2b2b2'
   }
-}));
+});
 
 const SelectCardItem = ({card}) => {
   const classes = useStyles();
@@ -26,7 +26,11 @@ const SelectCardItem = ({card}) => {
           <img src={mastercard} width={20} height={15} alt={card.bank}/>
           <div>
             <div>{card.bank}</div>
-            <div className={classes.number}>{`**** ${card.number.substring(card.number.length - 4, card.number.length)}`}</div>
+            <div
+              className={classes.number}
+            >
+              {`**** ${card.number.substring(card.number.length - 4, card.number.length)}`}
+            </div>
           </div>
         </> :
         <>

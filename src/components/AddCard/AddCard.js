@@ -5,6 +5,7 @@ import {useHistory} from "react-router-dom";
 import {useEffect, useState} from "react";
 import BindLayout from "../BindLayout/BindLayout";
 import {images, fieldsCard} from "../../data";
+import {validateFieldCard, creatIDCard} from "../../utils";
 
 
 const useStyle = makeStyles({
@@ -68,25 +69,12 @@ const useStyle = makeStyles({
   }
 })
 
-const validateFieldCard = ({number, date, cvc}) => {
-
-  if (number.length === 19 && date.length === 5 && cvc.length === 3) {
-    return false;
-  }
-
-  return true;
-}
-
-const creatIDCard = (number) => {
-  return `${Math.random() * 100000}${number.substring(15, 19)}`
-}
-
 const AddCard = ({onAddCardClick}) => {
   const classes = useStyle();
   const history = useHistory();
 
   const [card, setCard] = useState(fieldsCard)
-  const [isActive, setActive] = useState(true)
+  const [active, setActive] = useState(true)
 
   const handleNextClick = () => {
     history.push('/info')
@@ -150,7 +138,7 @@ const AddCard = ({onAddCardClick}) => {
               name="number"
               placeholder="Номер карты"
               variant="outlined"
-              onChange={(e) => transformValueInput(e)}
+              onChange={transformValueInput}
             />
             <TextField
               className={classes.dateCard}
@@ -158,7 +146,7 @@ const AddCard = ({onAddCardClick}) => {
               name="date"
               placeholder="ММ/ГГ"
               variant="outlined"
-              onChange={(e) => transformValueInput(e)}
+              onChange={transformValueInput}
             />
             <TextField
               className={classes.cvcCard}
@@ -168,7 +156,7 @@ const AddCard = ({onAddCardClick}) => {
               placeholder="CVC"
               variant="outlined"
               type="password"
-              onChange={(e) => transformValueInput(e)}
+              onChange={transformValueInput}
             />
           </div>
         </Paper>
@@ -180,7 +168,7 @@ const AddCard = ({onAddCardClick}) => {
             card={card}
             color="purple"
             text="Продолжить"
-            isActive={isActive}
+            isActive={active}
             onNextClick={handleNextClick}
             onAddCardClick={onAddCardClick}
           />
